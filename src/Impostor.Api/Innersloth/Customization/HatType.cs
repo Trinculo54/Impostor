@@ -1,4 +1,4 @@
-namespace Impostor.Api.Innersloth.Customization
+﻿namespace Impostor.Api.Innersloth.Customization
 {
     public enum HatType : uint
     {
@@ -109,13 +109,13 @@ namespace Impostor.Api.Innersloth.Customization
         ToppatHenry = 104,
         ToppatEllie = 105,
         GeoffreyPlumb = 106,
-        RightHandMan = 107,
-        AngryEyebrows = 108,
-        ChocolateIce = 109,
-        HeartPin = 110,
-        Ponytail = 111,
-        RubberGlove = 112,
-        UnicornHorn = 113,
-        Zipper = 114,
+        AngryEyebrows = 107,
+        ChocolateIce = 108,
+        HeartPin = 109,
+        Ponytail = 110,
+        RubberGlove = 111,
+        UnicornHorn = 112,
+        Zipper = 113,
+        RightHandMan = 114,
     }
 }

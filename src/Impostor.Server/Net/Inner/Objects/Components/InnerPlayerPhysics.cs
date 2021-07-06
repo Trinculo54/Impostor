@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Impostor.Api.Events.Managers;
+using Impostor.Api.Innersloth;
 using Impostor.Api.Net;
 using Impostor.Api.Net.Custom;
 using Impostor.Api.Net.Inner;

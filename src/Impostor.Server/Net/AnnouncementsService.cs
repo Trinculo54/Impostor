@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Impostor.Api.Events.Managers;
+using Impostor.Api.Innersloth;
 using Impostor.Api.Net.Messages;
 using Impostor.Api.Net.Messages.Announcements;
 using Impostor.Hazel;

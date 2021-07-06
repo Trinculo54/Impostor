@@ -1,4 +1,4 @@
-﻿using Impostor.Api.Net.Messages;
+using Impostor.Api.Net.Messages;
 
 namespace Impostor.Server.Net.Inner.Objects.Systems
 {

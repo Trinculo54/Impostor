@@ -26,7 +26,7 @@ namespace Impostor.Server.Net.Inner.Objects.Components
         private readonly ObjectPool<PlayerMovementEvent> _pool;
 
         private ushort _lastSequenceId;
-        private AirshipSpawnState _spawnState;
+        private bool _spawnSnapAllowed;
 
         public InnerCustomNetworkTransform(ICustomMessageManager<ICustomRpc> customMessageManager, Game game, ILogger<InnerCustomNetworkTransform> logger, InnerPlayerControl playerControl, IEventManager eventManager, ObjectPool<PlayerMovementEvent> pool) : base(customMessageManager, game)
         {
@@ -34,13 +34,6 @@ namespace Impostor.Server.Net.Inner.Objects.Components
             _playerControl = playerControl;
             _eventManager = eventManager;
             _pool = pool;
-        }
-
-        private enum AirshipSpawnState : byte
-        {
-            PreSpawn,
-            SelectingSpawn,
-            Spawned,
         }
 
         public Vector2 Position { get; private set; }
@@ -105,17 +98,15 @@ namespace Impostor.Server.Net.Inner.Objects.Components
 
                 if (Game.GameNet.ShipStatus is InnerAirshipStatus airshipStatus)
                 {
-                    // As part of airship spawning, clients are sending snap to -25 40 to move themself out of view
-                    if (_spawnState == AirshipSpawnState.PreSpawn && Approximately(position, airshipStatus.PreSpawnLocation))
+                    // As part of airship spawning, clients are sending snap to -25 40 for no reason(?), cancelling it works just fine
+                    if (Approximately(position, airshipStatus.PreSpawnLocation))
                     {
-                        _spawnState = AirshipSpawnState.SelectingSpawn;
-                        return true;
+                        return false;
                     }
 
-                    // Once the spawn has been selected, the client sends a second snap to the select spawn location
-                    if (_spawnState == AirshipSpawnState.SelectingSpawn && airshipStatus.SpawnLocations.Any(location => Approximately(position, location)))
+                    if (_spawnSnapAllowed && airshipStatus.SpawnLocations.Any(location => Approximately(position, location)))
                     {
-                        _spawnState = AirshipSpawnState.Spawned;
+                        _spawnSnapAllowed = false;
                         return true;
                     }
                 }
@@ -161,7 +152,7 @@ namespace Impostor.Server.Net.Inner.Objects.Components
 
         internal void OnPlayerSpawn()
         {
-            _spawnState = AirshipSpawnState.PreSpawn;
+            _spawnSnapAllowed = true;
         }
 
         private static bool SidGreaterThan(ushort newSid, ushort prevSid)
