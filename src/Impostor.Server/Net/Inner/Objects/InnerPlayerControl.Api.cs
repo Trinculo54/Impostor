@@ -123,13 +123,6 @@ namespace Impostor.Server.Net.Inner.Objects
             await Game.FinishRpcAsync(writer, player.OwnerId);
         }
 
-        public async ValueTask SetInfectedAsync()
-        {
-            using var writer = Game.StartRpc(NetId, RpcCalls.SetInfected);
-            writer.Write((byte)NetId);
-            await Game.FinishRpcAsync(writer);
-        }
-
         public async ValueTask SendChatAsync(string text)
         {
             using var writer = Game.StartRpc(NetId, RpcCalls.SendChat);
