@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Numerics;
-using Impostor.Api.Events.Managers;
 using Impostor.Api.Innersloth;
 using Impostor.Api.Innersloth.Maps;
 using Impostor.Api.Net.Custom;
@@ -13,7 +12,7 @@ namespace Impostor.Server.Net.Inner.Objects.ShipStatus
 {
     internal class InnerPolusShipStatus : InnerShipStatus, IInnerPolusShipStatus
     {
-        public InnerPolusShipStatus(ICustomMessageManager<ICustomRpc> customMessageManager, Game game, IEventManager eventManager) : base(customMessageManager, game, eventManager)
+        public InnerPolusShipStatus(ICustomMessageManager<ICustomRpc> customMessageManager, Game game) : base(customMessageManager, game)
         {
         }
 
@@ -53,9 +52,9 @@ namespace Impostor.Server.Net.Inner.Objects.ShipStatus
             base.AddSystems(systems);
 
             systems.Add(SystemTypes.Doors, new DoorsSystemType(Doors));
-            systems.Add(SystemTypes.Comms, new HudOverrideSystemType(Game, EventManager));
+            systems.Add(SystemTypes.Comms, new HudOverrideSystemType());
             systems.Add(SystemTypes.Security, new SecurityCameraSystemType());
-            systems.Add(SystemTypes.Laboratory, new ReactorSystemType(Game, EventManager));
+            systems.Add(SystemTypes.Laboratory, new ReactorSystemType());
         }
     }
 }

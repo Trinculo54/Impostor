@@ -1,10 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using Impostor.Api;
-using Impostor.Api.Events.Managers;
 using Impostor.Api.Innersloth;
 using Impostor.Api.Innersloth.Maps;
 using Impostor.Api.Net;
@@ -13,7 +12,6 @@ using Impostor.Api.Net.Inner;
 using Impostor.Api.Net.Inner.Objects.ShipStatus;
 using Impostor.Api.Net.Messages;
 using Impostor.Api.Net.Messages.Rpcs;
-using Impostor.Server.Events.Player;
 using Impostor.Server.Net.Inner.Objects.Systems;
 using Impostor.Server.Net.Inner.Objects.Systems.ShipStatus;
 using Impostor.Server.Net.State;
@@ -24,10 +22,9 @@ namespace Impostor.Server.Net.Inner.Objects.ShipStatus
     {
         private readonly Dictionary<SystemTypes, ISystemType> _systems = new Dictionary<SystemTypes, ISystemType>();
 
-        protected InnerShipStatus(ICustomMessageManager<ICustomRpc> customMessageManager, Game game, IEventManager eventManager) : base(customMessageManager, game)
+        protected InnerShipStatus(ICustomMessageManager<ICustomRpc> customMessageManager, Game game) : base(customMessageManager, game)
         {
             Components.Add(this);
-            EventManager = eventManager;
         }
 
         public abstract IMapData Data { get; }
@@ -39,8 +36,6 @@ namespace Impostor.Server.Net.Inner.Objects.ShipStatus
         public abstract Vector2 InitialSpawnCenter { get; }
 
         public abstract Vector2 MeetingSpawnCenter { get; }
-
-        protected IEventManager EventManager { get; }
 
         internal override ValueTask OnSpawnAsync()
         {
@@ -107,11 +102,12 @@ namespace Impostor.Server.Net.Inner.Objects.ShipStatus
                         return false;
                     }
 
-                    if (player != null)
-                    {
-                        await EventManager.CallAsync(new PlayerRepairSystemEvent(Game, sender, player, systemType, amount));
-                    }
+                    break;
+                }
 
+                case RpcCalls.UpdateSystem:
+                {
+                    Rpc35UpdateSystem.Deserialize(reader, Game, out var systemType, out var playerControl, out var sId, out var state, out var ventId);
                     break;
                 }
 

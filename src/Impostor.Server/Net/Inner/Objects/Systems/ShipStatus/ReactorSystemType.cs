@@ -1,15 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Impostor.Api.Events.Managers;
-using Impostor.Api.Games;
 using Impostor.Api.Net.Messages;
-using Impostor.Server.Events.System;
 
 namespace Impostor.Server.Net.Inner.Objects.Systems.ShipStatus
 {
-    public class ReactorSystemType : SystemType, IActivatable
+    public class ReactorSystemType : ISystemType, IActivatable
     {
-        public ReactorSystemType(IGame game, IEventManager eventManager) : base(game, eventManager)
+        public ReactorSystemType()
         {
             Countdown = 10000f;
             UserConsolePairs = new HashSet<Tuple<byte, byte>>();
@@ -21,17 +18,14 @@ namespace Impostor.Server.Net.Inner.Objects.Systems.ShipStatus
 
         public bool IsActive => Countdown < 10000.0;
 
-        public override void Deserialize(IMessageReader reader, bool initialState)
+        public void Serialize(IMessageWriter writer, bool initialState)
         {
-            float value = reader.ReadSingle();
+            throw new NotImplementedException();
+        }
 
-            if (IsActive ^ (value < 10000.0))
-            {
-                // throw event
-            }
-
-            Countdown = value;
-
+        public void Deserialize(IMessageReader reader, bool initialState)
+        {
+            Countdown = reader.ReadSingle();
             UserConsolePairs.Clear(); // TODO: Thread safety
 
             var count = reader.ReadPackedInt32();

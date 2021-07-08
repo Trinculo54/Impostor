@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Impostor.Api.Events.Managers;
 using Impostor.Api.Innersloth;
 using Impostor.Api.Innersloth.Maps;
 using Impostor.Api.Net.Custom;
@@ -14,7 +13,7 @@ namespace Impostor.Server.Net.Inner.Objects.ShipStatus
 {
     internal class InnerAirshipStatus : InnerShipStatus, IInnerAirshipStatus
     {
-        public InnerAirshipStatus(ICustomMessageManager<ICustomRpc> customMessageManager, Game game, IEventManager eventManager) : base(customMessageManager, game, eventManager)
+        public InnerAirshipStatus(ICustomMessageManager<ICustomRpc> customMessageManager, Game game) : base(customMessageManager, game)
         {
         }
 
@@ -50,7 +49,7 @@ namespace Impostor.Server.Net.Inner.Objects.ShipStatus
             base.AddSystems(systems);
 
             systems.Add(SystemTypes.Doors, new DoorsSystemType(Doors));
-            systems.Add(SystemTypes.Comms, new HudOverrideSystemType(Game, EventManager));
+            systems.Add(SystemTypes.Comms, new HudOverrideSystemType());
             systems.Add(SystemTypes.GapRoom, new MovingPlatformBehaviour());
             systems.Add(SystemTypes.Reactor, new HeliSabotageSystemType());
             systems.Add(SystemTypes.Decontamination, new ElectricalDoors(Doors));
