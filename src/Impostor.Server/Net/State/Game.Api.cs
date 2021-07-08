@@ -46,9 +46,14 @@ namespace Impostor.Server.Net.State
                 await FinishRpcAsync(writer);
             }
         }
-        
+
         public async ValueTask SendSettingsToPlayerAsync(GameOptionsData options, IInnerPlayerControl player)
         {
+            if (Host == null)
+            {
+                throw new ImpostorException("Attempted to set infected when the host was not spawned.");
+            }
+
             if (Host.Character == null)
             {
                 throw new ImpostorException("Attempted to set infected when the host was not spawned.");
