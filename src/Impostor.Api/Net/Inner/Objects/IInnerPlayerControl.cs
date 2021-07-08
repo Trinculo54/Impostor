@@ -130,6 +130,12 @@ namespace Impostor.Api.Net.Inner.Objects
         ValueTask SendSkinToPlayerAsync(SkinType skinType, IInnerPlayerControl? player = null);
 
         /// <summary>
+        /// HELLO.
+        /// </summary>
+        /// <returns>TEASK AWAIT.</returns>
+        ValueTask SetInfectedAsync();
+
+        /// <summary>
         ///     Send a chat message as the current <see cref="IInnerPlayerControl" />.
         ///     Visible to all players.
         /// </summary>
