@@ -42,5 +42,7 @@ jobs:
         
       - uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
-          path: build/ # or path/to/artifact
+          name: Linux, MacOS, and Win builds
+          path: |
+           !build/*.zip
+           !build/*.tar.gz
