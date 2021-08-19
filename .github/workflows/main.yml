@@ -46,3 +46,4 @@ jobs:
           path: |
            !build/*.zip
            !build/*.tar.gz
+           build/
