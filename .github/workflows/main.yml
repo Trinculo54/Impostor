@@ -44,6 +44,6 @@ jobs:
         with:
           name: Linux, MacOS, and Win builds
           path: |
-           !build/*.zip
-           !build/*.tar.gz
+           !build/**.zip
+           !build/**.tar.gz
            build/
