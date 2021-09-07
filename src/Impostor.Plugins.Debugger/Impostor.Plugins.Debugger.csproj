@@ -10,11 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Impostor.Api\Impostor.Api.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Impostor.Api" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Impostor.Api" Version="1.6.0-dev" />
+  </ItemGroup>
 </Project>
