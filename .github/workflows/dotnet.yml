@@ -38,7 +38,7 @@ jobs:
           verbosity: Diagnostic
           
       - name: Build Impostor
-        run: ls
+        run: ls build
         
       - uses: actions/upload-artifact@v2
         with:
