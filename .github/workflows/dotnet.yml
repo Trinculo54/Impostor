@@ -42,8 +42,26 @@ jobs:
         
       - uses: actions/upload-artifact@v2
         with:
-          name: Linux, MacOS, and Win builds
+          name: Linux-arm
           path: |
-           !build/**.zip
-           !build/**.tar.gz
-           build/
+           build/Impostor-Server_linux-arm
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Linux-arm64
+          path: |
+           build/Impostor-Server_linux-arm64
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Linux-x64
+          path: |
+           build/Impostor-Server_linux-x64
+      - uses: actions/upload-artifact@v2
+        with:
+          name: osx-x64
+          path: |
+           build/Impostor-Server_osx-x64
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Win-x64
+          path: |
+           build/Impostor-Server_win-x64
