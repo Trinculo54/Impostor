@@ -18,8 +18,8 @@ if (buildRelease)
 }
 else if (buildId != null) 
 {
-    msbuildSettings.Properties["VersionSuffix"] = new[] { "ci." + buildId };
-    buildVersion += "-ci." + buildId;
+    msbuildSettings.Properties["VersionSuffix"] = new[] { "ci.Banana"};
+    buildVersion += "-ci.Banana";
 }
 
 //////////////////////////////////////////////////////////////////////
